@@ -12,7 +12,9 @@
     "quotes": ["error", "double"],
     "object-curly-spacing": ["error", "always"],
     "linebreak-style": ["error", "windows"],
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "max-len": ["error", 120],
+    "@typescript-eslint/no-explicit-any": "off"
   },
   "extends": [
     "eslint:recommended",
