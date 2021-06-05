@@ -14,7 +14,12 @@
     "linebreak-style": ["error", "windows"],
     "require-jsdoc": "off",
     "max-len": ["error", 120],
-    "@typescript-eslint/no-explicit-any": "off"
+    "operator-linebreak": "off",
+
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-inferrable-types": "off"
   },
   "extends": [
     "eslint:recommended",

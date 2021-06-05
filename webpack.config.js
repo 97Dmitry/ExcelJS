@@ -35,7 +35,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"],
+    extensions: [".ts", ".js"],
     alias: {
       "@": path.resolve(__dirname, "src"),
       "@core": path.resolve(__dirname, "src/core"),
