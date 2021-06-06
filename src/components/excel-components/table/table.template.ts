@@ -14,15 +14,26 @@ export function tableTemplate(): string {
   function columnGenerator(array: Array<string>): string {
     let columns = "";
     for (const i of array) {
-      columns += `<div class="excel__table-row-data__column-name">${i}</div>`;
+      columns += `
+                  <div class="excel__table-row-data__column-name" data-type="resizable">
+                    ${i}
+                    <div class="excel__table-column-resizer" data-resize="column"></div>
+                  </div>`;
     }
     return columns;
   }
 
   function cellGenerator(cellCount: number): string {
     let cell = "";
+    const letters = lettersGenerator(cellCount);
     for (let i = 0; i <= cellCount; i++) {
-      cell += "<div class=\"excel__table-row-data__cell\" contenteditable></div>";
+      cell += `
+                <div
+                  class="excel__table-row-data__cell"
+                  contenteditable
+                  data-cell-position="${letters[i]}">
+                </div>
+              `;
     }
     return cell;
   }
@@ -31,8 +42,11 @@ export function tableTemplate(): string {
     let rows = "";
     for (let i = 1; i <= rowCount; i++) {
       rows += `
-                <div class="excel__table-row">
-                  <div class="excel__table-row__name">${i}</div>
+                <div class="excel__table-row"  data-type="resizable">
+                  <div class="excel__table-row__name">
+                    ${i}
+                    <div class="excel__table-row-resizer" data-resize="row"></div>
+                  </div>
                   <div class="excel__table-row-data">
                     ${cellGenerator(columnCount)}
                   </div>
