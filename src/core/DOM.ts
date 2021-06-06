@@ -27,6 +27,26 @@ export class DOM {
     this.$el.removeEventListener(eventType, callback);
   }
 
+  getParentByData(dataSelector: string): HTMLElement {
+    return $(this.$el.closest(dataSelector));
+  }
+
+  getCoord() {
+    return this.$el.getBoundingClientRect();
+  }
+
+  getAllBySelector(selector: string): Array<any> {
+    return this.$el.querySelectorAll(selector);
+  }
+
+  css(styles: object) {
+    for (const st in styles) {
+      if (Object.prototype.hasOwnProperty.call(styles, st)) {
+        this.$el.style[st] = String((styles as any)[st]);
+      }
+    }
+  }
+
   clear() {
     this.html("");
     return this;
