@@ -8,7 +8,7 @@ export function resizer($source: DOM, event: any) {
   let newWidth: number;
   let newHeight: number;
 
-  document.onmousemove = (e: any) => {
+  document.onmousemove = (e: MouseEvent) => {
     if (resizeType === "column") {
       $resizer.css({ opacity: 1, bottom: "-5000px" });
       const delta = e.screenX - parentCoord.right;
@@ -24,7 +24,7 @@ export function resizer($source: DOM, event: any) {
   document.onmouseup = () => {
     if (resizeType === "column") {
       $parent.css({ width: `${newWidth}px` });
-      $source.getAllBySelector(`[data-cell-position="${$parent.$el.outerText}"]`)
+      $source.getAllBySelector(`[data-cell-column="${$parent.$el.outerText}"]`)
           .forEach((el: any) => {
             el.style.width = newWidth + "px";
           });
@@ -35,4 +35,51 @@ export function resizer($source: DOM, event: any) {
     document.onmousemove = null;
     document.onmouseup = null;
   };
+}
+
+export function cellSelector(event: any, $target: any, selection: any, $source: any) {
+  if (!event.shiftKey) {
+    selection.select($target);
+  } else if (event.shiftKey) {
+    const cur = cellPositionParser(selection.current.data.cellPosition);
+    const target = cellPositionParser($target.data.cellPosition);
+    selection.selectSeveral(
+        builderCellsPosition(cur, target), $source
+    );
+  }
+}
+
+export function cellPositionParser(pos: string) {
+  const parsedPos = pos.split(":");
+  const column = parsedPos[0];
+  const row = parsedPos[1];
+  return { row: +row, column };
+}
+
+export function builderCellsPosition(start: any, end: any) {
+  let startRow = start.row;
+  let startColumn = start.column.charCodeAt() - 64;
+  let endRow = end.row;
+  let endColumn = end.column.charCodeAt() - 64;
+  if (startRow > endRow) {
+    [startRow, endRow] = [endRow, startRow];
+  }
+  if (startColumn > endColumn) {
+    [startColumn, endColumn] = [endColumn, startColumn];
+  }
+  const rows: number[] = [];
+  const columns: string[] = [];
+  for (let i = startRow; i <= endRow; i++) {
+    rows.push(i);
+  }
+  for (let i = startColumn; i <= endColumn; i++) {
+    columns.push(String.fromCharCode(i + 64));
+  }
+
+  return columns.reduce((acc, column) => {
+    rows.forEach((row) => {
+      acc.push(`${column}:${row}`);
+    });
+    return acc;
+  }, []);
 }

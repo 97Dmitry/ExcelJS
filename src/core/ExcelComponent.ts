@@ -10,6 +10,12 @@ export class ExcelComponent extends DOMListener {
   constructor($source: DOM, options: Options) {
     super($source, options?.listeners);
     this.componentName = options.name || "";
+
+    this.prepare();
+  }
+
+  prepare() {
+    null;
   }
 
   toHTML(): string {
