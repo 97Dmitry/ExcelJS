@@ -20,7 +20,7 @@ export class TableSelection {
     this.group.push($el);
     this.current = $el;
     $el.addClass(TableSelection.className);
-    console.log(this.current);
+    this.current.focusEl();
   }
 
   selectSeveral(positions: Array<string>, $source: any) {

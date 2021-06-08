@@ -63,6 +63,10 @@ export class DOM {
     }
   }
 
+  focusEl() {
+    this.$el.focus();
+  }
+
   clear() {
     this.html("");
     return this;

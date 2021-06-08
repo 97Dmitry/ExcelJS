@@ -1,4 +1,4 @@
-export function tableTemplate(): string {
+export function tableTemplate(tableRowCount: number, tableColumnCount: number): string {
   function lettersGenerator(columnCount: number): Array<string> {
     const firstLetter = 65;
     columnCount > 25
@@ -58,7 +58,7 @@ export function tableTemplate(): string {
     return rows;
   }
 
-  function tableCreate(columnCount: number, rowCount: number): string {
+  function tableCreate( rowCount: number, columnCount: number): string {
     columnCount > 25
       ? columnCount = 25
       : null;
@@ -73,5 +73,5 @@ export function tableTemplate(): string {
 `;
   }
 
-  return tableCreate(28, 100);
+  return tableCreate(tableRowCount, tableColumnCount);
 }

@@ -83,3 +83,44 @@ export function builderCellsPosition(start: any, end: any) {
     return acc;
   }, []);
 }
+
+export function letterChanger(letter: string, route: number, columnCount: number): string {
+  columnCount > 25 ? columnCount = 25 : null;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const letterCode = letter.charCodeAt();
+  if (route === 1 && letterCode < 65 + columnCount) {
+    return String.fromCharCode(letterCode + 1);
+  } else if (route === -1 && letterCode > 65) {
+    return String.fromCharCode(letterCode - 1);
+  } else {
+    return String.fromCharCode(letterCode);
+  }
+}
+
+interface Pos {row: number, column: string}
+export function nextSelector(
+    event: any,
+    { row, column }: Pos,
+    rowCount: number,
+    columnCount: number,
+    route: number = 0
+) {
+  if (event.key === "Enter" && !event.shiftKey && row < rowCount) {
+    event.preventDefault();
+    row++;
+    return `[data-cell-position="${column}:${row}"]`;
+  } else if (event.key === "Tab" && !event.shiftKey) {
+    event.preventDefault();
+    route = 1;
+    column = (letterChanger(column, route, columnCount));
+    return `[data-cell-position="${column}:${row}"]`;
+  } else if (event.key === "Tab" && event.shiftKey) {
+    event.preventDefault();
+    route = -1;
+    column = (letterChanger(column, route, columnCount));
+    return `[data-cell-position="${column}:${row}"]`;
+  } else {
+    return `[data-cell-position="${column}:${row}"]`;
+  }
+}
