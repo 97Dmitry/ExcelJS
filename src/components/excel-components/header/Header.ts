@@ -1,15 +1,13 @@
 import { ExcelComponent } from "@core/ExcelComponent";
 import { DOM } from "@core/DOM";
 
-/**
- * Header
- */
 export class Header extends ExcelComponent {
   static className = "excel__header"
 
-  constructor($source: DOM) {
+  constructor($source: DOM, options: any) {
     super($source, {
       name: "Header",
+      ...options,
     });
   }
 

@@ -1,4 +1,4 @@
-export function tableTemplate(): string {
+export function tableTemplate(tableRowCount: number, tableColumnCount: number): string {
   function lettersGenerator(columnCount: number): Array<string> {
     const firstLetter = 65;
     columnCount > 25
@@ -23,7 +23,7 @@ export function tableTemplate(): string {
     return columns;
   }
 
-  function cellGenerator(cellCount: number): string {
+  function cellGenerator(cellCount: number, rowName: number): string {
     let cell = "";
     const letters = lettersGenerator(cellCount);
     for (let i = 0; i <= cellCount; i++) {
@@ -31,7 +31,10 @@ export function tableTemplate(): string {
                 <div
                   class="excel__table-row-data__cell"
                   contenteditable
-                  data-cell-position="${letters[i]}">
+                  data-cell = "true"
+                  data-cell-column="${letters[i]}"
+                  data-cell-row="${rowName}"
+                  data-cell-position="${letters[i]}:${rowName}">
                 </div>
               `;
     }
@@ -48,7 +51,7 @@ export function tableTemplate(): string {
                     <div class="excel__table-row-resizer" data-resize="row"></div>
                   </div>
                   <div class="excel__table-row-data">
-                    ${cellGenerator(columnCount)}
+                    ${cellGenerator(columnCount, i)}
                   </div>
                 </div>
               `;
@@ -56,7 +59,7 @@ export function tableTemplate(): string {
     return rows;
   }
 
-  function tableCreate(columnCount: number, rowCount: number): string {
+  function tableCreate( rowCount: number, columnCount: number): string {
     columnCount > 25
       ? columnCount = 25
       : null;
@@ -71,5 +74,5 @@ export function tableTemplate(): string {
 `;
   }
 
-  return tableCreate(28, 100);
+  return tableCreate(tableRowCount, tableColumnCount);
 }

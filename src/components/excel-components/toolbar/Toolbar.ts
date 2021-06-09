@@ -4,9 +4,10 @@ import { DOM } from "@core/DOM";
 export class Toolbar extends ExcelComponent {
   static className = "excel__toolbar"
 
-  constructor($source: DOM) {
+  constructor($source: DOM, options: any) {
     super($source, {
       name: "Toolbar",
+      ...options,
     });
   }
 

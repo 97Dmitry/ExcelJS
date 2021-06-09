@@ -39,12 +39,32 @@ export class DOM {
     return this.$el.querySelectorAll(selector);
   }
 
+  getOneBySelector(selector: string): any {
+    return $(this.$el.querySelector(selector));
+  }
+
+  get data() {
+    return this.$el.dataset;
+  }
+
+  addClass(className: string) {
+    this.$el.classList.add(className);
+  }
+
+  removeClass(className: string) {
+    this.$el.classList.remove(className);
+  }
+
   css(styles: object) {
     for (const st in styles) {
       if (Object.prototype.hasOwnProperty.call(styles, st)) {
         this.$el.style[st] = String((styles as any)[st]);
       }
     }
+  }
+
+  focusEl() {
+    this.$el.focus();
   }
 
   clear() {
