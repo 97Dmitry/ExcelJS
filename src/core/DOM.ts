@@ -39,7 +39,7 @@ export class DOM {
     return this.$el.querySelectorAll(selector);
   }
 
-  getOneBySelector(selector: string): Element {
+  getOneBySelector(selector: string): any {
     return $(this.$el.querySelector(selector));
   }
 

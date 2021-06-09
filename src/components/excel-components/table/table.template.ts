@@ -31,6 +31,7 @@ export function tableTemplate(tableRowCount: number, tableColumnCount: number): 
                 <div
                   class="excel__table-row-data__cell"
                   contenteditable
+                  data-cell = "true"
                   data-cell-column="${letters[i]}"
                   data-cell-row="${rowName}"
                   data-cell-position="${letters[i]}:${rowName}">

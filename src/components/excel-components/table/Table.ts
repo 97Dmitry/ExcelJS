@@ -10,10 +10,11 @@ export class Table extends ExcelComponent {
   static columnCount = 25
   private selection: TableSelection;
 
-  constructor($source: DOM) {
+  constructor($source: DOM, options: any) {
     super($source, {
       name: "Table",
-      listeners: ["mousedown", "click", "keydown"],
+      listeners: ["mousedown", "click", "keydown", "input"],
+      ...options,
     });
   }
 
@@ -29,12 +30,20 @@ export class Table extends ExcelComponent {
     super.init();
 
     this.selection.select(this.$source.getOneBySelector("[data-cell-position='A:1']"));
+    this.emitter.emit("currentCellText", this.$source.getOneBySelector("[data-cell-position='A:1']").$el.outerText);
+    this.subscribe("formulaInput", (text: any) => {
+      this.selection.current.$el.textContent = text;
+    });
+    this.subscribe("formulaEnter", () => {
+      this.selection.current.focusEl();
+    });
   }
 
   onClick(event: any) {
     const $target = $(event.target);
     if ($target.data.cellPosition) {
       cellSelector(event, $target, this.selection, this.$source);
+      this.emitter.emit("currentCellText", $target.$el.outerText);
     }
   }
 
@@ -52,6 +61,15 @@ export class Table extends ExcelComponent {
           Table.rowCount,
           Table.columnCount);
       this.selection.select(this.$source.getOneBySelector(newPos));
+      this.emitter.emit("currentCellText", this.$source.getOneBySelector(newPos).$el.outerText);
+    }
+  }
+
+  onInput(event: any) {
+    const $target = $(event.target);
+
+    if ($target.data.cell === "true") {
+      this.emitter.emit("currentCellText", $target.$el.outerText);
     }
   }
 
