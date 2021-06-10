@@ -11,10 +11,10 @@ export function resizer($source: DOM, event: any) {
   document.onmousemove = (e: MouseEvent) => {
     if (resizeType === "column") {
       $resizer.css({ opacity: 1, bottom: "-5000px" });
-      const delta = e.screenX - parentCoord.right;
+      const delta = e.clientX - parentCoord.right;
       newWidth = parentCoord.width + delta;
       $resizer.css({ right: -delta + "px" });
-    } else {
+    } else if (resizeType === "row") {
       $resizer.css({ opacity: 1, right: "-5000px" });
       const delta = parentCoord.bottom - e.clientY;
       newHeight = parentCoord.height - delta;
