@@ -6,7 +6,7 @@ export class Excel {
   private $el: Element;
   private emitter: Emitter;
 
-  constructor(selector: string, options: {components: Array<any> }) {
+  constructor(selector: string, options: {components: Array<any>, store: Record<string, any> }) {
     this.$el = $(selector);
     this.components = options.components || [];
     this.emitter = new Emitter();
