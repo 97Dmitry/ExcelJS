@@ -3,11 +3,12 @@ import { $, DOM } from "@core/DOM";
 import { tableTemplate } from "./table.template";
 import { cellPositionParser, cellSelector, nextSelector, resizer } from "./table.functions";
 import { TableSelection } from "./TableSelection";
+import { cellTextAction, tableResizeAction } from "@/redux/actions";
 
 export class Table extends ExcelComponent {
-  static className = "excel__table"
-  static rowCount = 100
-  static columnCount = 25
+  static className = "excel__table";
+  static rowCount = 100;
+  static columnCount = 25;
   private selection: TableSelection;
 
   constructor($source: DOM, options: any) {
@@ -33,9 +34,10 @@ export class Table extends ExcelComponent {
     this.emitter.emit("currentCellText", this.$source.getOneBySelector("[data-cell-position='A:1']").$el.outerText);
     this.subscribe("formulaInput", (text: any) => {
       this.selection.current.$el.textContent = text;
-    });
-    this.subscribe("formulaEnter", () => {
-      this.selection.current.focusEl();
+      this.store.dispatch(cellTextAction({
+        cellName: this.selection.current.data.cellPosition,
+        cellText: this.selection.current.$el.textContent,
+      }));
     });
   }
 
@@ -69,13 +71,25 @@ export class Table extends ExcelComponent {
     const $target = $(event.target);
 
     if ($target.data.cell === "true") {
-      this.emitter.emit("currentCellText", $target.$el.outerText);
+      const cellName = $target.data.cellPosition;
+      const cellText = $target.$el.outerText.trim();
+      this.emitter.emit("currentCellText", cellText);
+      this.store.dispatch(cellTextAction({ cellName, cellText }));
+    }
+  }
+
+  async tableResize(event: any) {
+    try {
+      const data = await resizer(this.$source, event);
+      this.store.dispatch(tableResizeAction(data));
+    } catch (e) {
+      console.log(e);
     }
   }
 
   onMousedown(event: any) {
     if (event.target.dataset.resize) {
-      resizer(this.$source, event);
+      this.tableResize(event);
     }
   }
 }

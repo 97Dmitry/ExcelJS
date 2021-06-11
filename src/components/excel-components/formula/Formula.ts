@@ -2,7 +2,7 @@ import { ExcelComponent } from "@core/ExcelComponent";
 import { DOM } from "@/core/DOM";
 
 export class Formula extends ExcelComponent {
-  static className = "excel__formula"
+  static className = "excel__formula";
 
   constructor($source: DOM, options: any) {
     super($source, {

@@ -5,10 +5,12 @@ export class Excel {
   private components: Array<any>;
   private $el: Element;
   private emitter: Emitter;
+  private store: Record<string, any>;
 
-  constructor(selector: string, options: {components: Array<any> }) {
+  constructor(selector: string, options: {components: Array<any>, store: Record<string, any> }) {
     this.$el = $(selector);
     this.components = options.components || [];
+    this.store = options.store;
     this.emitter = new Emitter();
   }
 
@@ -19,6 +21,7 @@ export class Excel {
 
     const componentOptions = {
       emitter: this.emitter,
+      store: this.store,
     };
 
     this.components = this.components.map((Component) => {
