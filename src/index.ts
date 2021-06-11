@@ -8,8 +8,12 @@ import { Table } from "./components/excel-components/table/Table";
 
 import { createStore } from "@core/createStore";
 import { rootReducer } from "@/redux/rootReducer";
+import { lStorage } from "@core/utils";
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, lStorage("excelStorage"));
+store.subscribe((store: any) => {
+  lStorage("excelStorage", store);
+});
 
 const excel = new Excel("#app", {
   components: [
