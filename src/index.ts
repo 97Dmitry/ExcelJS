@@ -6,7 +6,7 @@ import { Toolbar } from "./components/excel-components/toolbar/Toolbar";
 import { Formula } from "./components/excel-components/formula/Formula";
 import { Table } from "./components/excel-components/table/Table";
 
-import { createStore } from "@core/createStore";
+import { createStore } from "@/redux/createStore";
 import { rootReducer } from "@/redux/rootReducer";
 import { lStorage } from "@core/utils";
 

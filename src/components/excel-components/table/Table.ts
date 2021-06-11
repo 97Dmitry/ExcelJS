@@ -6,9 +6,9 @@ import { TableSelection } from "./TableSelection";
 import { cellTextAction, tableResizeAction } from "@/redux/actions";
 
 export class Table extends ExcelComponent {
-  static className = "excel__table"
-  static rowCount = 100
-  static columnCount = 25
+  static className = "excel__table";
+  static rowCount = 100;
+  static columnCount = 25;
   private selection: TableSelection;
 
   constructor($source: DOM, options: any) {
@@ -38,7 +38,6 @@ export class Table extends ExcelComponent {
         cellName: this.selection.current.data.cellPosition,
         cellText: this.selection.current.$el.textContent,
       }));
-      console.log(this.selection.current.data.cellPosition);
     });
   }
 

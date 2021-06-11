@@ -6,7 +6,7 @@ interface Options {
   name: string;
   listeners?: Array<string>;
   emitter: Emitter;
-  store: any
+  store: any;
 }
 
 export class ExcelComponent extends DOMListener {

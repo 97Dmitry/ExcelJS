@@ -2,7 +2,7 @@ import { ExcelComponent } from "@core/ExcelComponent";
 import { DOM } from "@core/DOM";
 
 export class Header extends ExcelComponent {
-  static className = "excel__header"
+  static className = "excel__header";
 
   constructor($source: DOM, options: any) {
     super($source, {

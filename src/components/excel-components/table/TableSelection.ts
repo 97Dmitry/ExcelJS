@@ -1,7 +1,7 @@
 export class TableSelection {
-  static className = "selected"
-  private group: Array<any>
-  public current: any
+  static className = "selected";
+  private group: Array<any>;
+  public current: any;
 
   constructor() {
     this.group = [];
