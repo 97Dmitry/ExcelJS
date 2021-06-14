@@ -1,4 +1,4 @@
-import { CELL_TEXT, ROW_RESIZE, TABLE_RESIZE } from "./types";
+import { CELL_TEXT, ROW_RESIZE, TABLE_NAME, TABLE_RESIZE } from "./types";
 
 export function rootReducer(state: Record<string, any>, action: any) {
   let prev;
@@ -16,6 +16,10 @@ export function rootReducer(state: Record<string, any>, action: any) {
       prev[action.data.cellName] = action.data.cellText;
       action.data.cellText === "" ? delete prev[action.data.cellName] : null;
       return { ...state, cellState: { ...prev } };
+    case TABLE_NAME:
+      prev = state.tableName || {};
+      prev.tableName = action.data.tableNameState;
+      return { ...state, tableNameState: { ...prev } };
     default: return state;
   }
 }

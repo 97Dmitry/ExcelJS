@@ -1,4 +1,4 @@
-import { CELL_TEXT, ROW_RESIZE, TABLE_RESIZE } from "./types";
+import { CELL_TEXT, ROW_RESIZE, TABLE_NAME, TABLE_RESIZE } from "./types";
 
 export function tableResizeAction(data: Record<string, any>) {
   return {
@@ -10,6 +10,13 @@ export function tableResizeAction(data: Record<string, any>) {
 export function cellTextAction(data: Record<string, any>) {
   return {
     type: CELL_TEXT,
+    data,
+  };
+}
+
+export function tableNameAction(data: Record<string, any>) {
+  return {
+    type: TABLE_NAME,
     data,
   };
 }
